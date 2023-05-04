@@ -65,7 +65,7 @@
                                         <p><fmt:formatDate value="${i.rdate}" pattern="yyyy-MM-dd"/></p>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="/detail?id=${i.id}" class="btn btn-info" role="button">Detail</a>
+                                        <a href="/item/detail?id=${i.id}" class="btn btn-info" role="button">Detail</a>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>

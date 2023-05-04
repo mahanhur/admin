@@ -12,10 +12,10 @@
         SELECT * FROM item
     </select>
     <insert id="insert" parameterType="item">
-        INSERT INTO item VALUES (#{id},#{price},#{imgname},SYSDATE)
+        INSERT INTO item VALUES (item_seq.NEXTVAL, #{name},#{price},#{imgname},SYSDATE)
     </insert>
     <update id="update" parameterType="item">
-        UPDATE item SET price=#{price}, imgname=#{imgname} WHERE iD=#{id}
+        UPDATE item SET price=#{price}, name=#{name}, imgname=#{imgname} WHERE id=#{id}
     </update>
     <delete id="delete" parameterType="Integer">
         DELETE FROM item WHERE ID=#{id}
