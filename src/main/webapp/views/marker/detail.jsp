@@ -3,6 +3,46 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script>
+    let marker_detail_map = {
+    map:null,
+    init:function(){
+    let mapContainer = document.querySelector('#map');
+    let mapOption = {
+    center: new kakao.maps.LatLng(${mdetail.lat},${mdetail.lng}), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
+    //지도생성
+    map = new kakao.maps.Map(mapContainer, mapOption);
+    //우측상단 옵션 추가
+    var mapTypeControl = new kakao.maps.MapTypeControl();
+    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+    var zoomControl = new kakao.maps.ZoomControl();
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    //마커 생성
+    var markerPosition  = new kakao.maps.LatLng(${mdetail.lat},${mdetail.lng});
+    var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+    marker.setMap(map);
+    //마커에 온포커스 윈도우이벤트 생성
+    var iwContent = '<img src="/uimg/${mdetail.img}" style="width:80px;"/><div style="padding:5px;">Here!</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    var infowindow = new kakao.maps.InfoWindow({
+    content : iwContent
+});
+    kakao.maps.event.addListener(marker, 'mouseover', function() {
+    infowindow.open(map, marker);
+});
+    kakao.maps.event.addListener(marker, 'mouseout', function() {
+    infowindow.close();
+});
+    kakao.maps.event.addListener(marker, 'clic', function() {
+    location.href='${mdetail.target}'
+});
+    marker.setMap(map);
+}
+};
+
+
     let marker_detail = {
         init : function() {
             $("#register_btn").click ( function() {
@@ -28,6 +68,7 @@
 
     $( () => {
         marker_detail.init();
+        marker_detail_map.init();
     });
 </script>
 
@@ -90,6 +131,13 @@
                         </div>
                     </div>
                 </form>
+                <div class="card-body">             <!--map start-->
+                    <div class="row">
+                        <div class="col-sm-10" id="map" style="height: 400px; border:2px solid red">
+
+                        </div>
+                    </div>
+                </div>                              <!--map end-->
             </div>
         </div>
     </div>

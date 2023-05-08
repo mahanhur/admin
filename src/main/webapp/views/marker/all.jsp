@@ -44,6 +44,7 @@
 <%--                </div>--%>
                 <label>Location : </label>
                 <select class="form-control col-sm-3" name="loc">
+                    <option value="">지역</option>
                     <option value="S" <c:if test="${ms.loc=='s'}">selected</c:if>>서울</option>
                     <option value="B" <c:if test="${ms.loc=='b'}">selected</c:if>>부산</option>
                     <option value="J" <c:if test="${ms.loc=='j'}">selected</c:if>>제주</option>

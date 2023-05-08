@@ -100,6 +100,11 @@ public class MainController {
         return result;
     }
 
+    @RequestMapping("/websocket")
+    public String websocket(Model model) throws Exception{
+        model.addAttribute("center", "websocket");
+        return "index";
+    }
     }
 
 

@@ -24,6 +24,7 @@
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c91de3a9ba7f48da3cb562c2fc973026"></script>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -33,6 +34,9 @@
     <script src="https://code.highcharts.com/highcharts-3d.js"></script>
     <script src="https://code.highcharts.com/modules/bullet.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
+    <!--about Web Socket-->
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
 </head>
 
@@ -169,6 +173,14 @@
                 <i class="fas fa-fw fa-table"></i>
                 <span>Live Charts</span></a>
         </li>
+        <c:if test="${loginadm != null}">
+            <!-- Nav Item - Live Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="/websocket">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Web Socket</span></a>
+            </li>
+        </c:if>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -374,7 +386,7 @@
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">n
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">${loginadm.id}님</span>
                                     <img class="img-profile rounded-circle"
                                          src="img/undraw_profile.svg">
