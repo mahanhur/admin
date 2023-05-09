@@ -45,4 +45,10 @@ public class SalesService implements KBService<String, Sales> {
     public List<Sales> getall() throws Exception {
         return mapper.selectall();
     }
+    public List<Integer> mprice() throws Exception {
+        return mapper.mprice();
+    }
+    public List<Integer> fprice() throws Exception {
+        return mapper.fprice();
+    }
 }

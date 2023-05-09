@@ -20,7 +20,7 @@ public class ScheduleController {
     private SimpMessageSendingOperations messagingTemplate;
 
 
-    @Scheduled(cron = "*/2 * * * * *")
+    @Scheduled(cron = "*/200 * * * * *")
     public void cronJobDailyUpdate() {
         MsgAdm msg = new MsgAdm();
         Random r = new Random();
@@ -36,7 +36,7 @@ public class ScheduleController {
         messagingTemplate.convertAndSend("/sendadm", msg);
     }
 
-    @Scheduled(cron = "*/3 * * * * *")
+    @Scheduled(cron = "*/30 * * * * *")
     public void cronJobWeeklyUpdate() throws Exception {
         int num = cartService.count();
         log.info(num+"");

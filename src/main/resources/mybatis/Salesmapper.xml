@@ -7,6 +7,12 @@
     <select id="selectall" resultType="sales">
         SELECT * FROM sales
     </select>
+    <select id="mprice" resultType="integer">
+        select price from sales where gender = 'M'
+    </select>
+    <select id="fprice" resultType="integer">
+        select price from sales where gender = 'F'
+    </select>
     <insert id="insert" parameterType="sales">
         INSERT INTO sales VALUES (TO_DATE(#{rdate},'YYYY-MM-DD'), #{price}, #{gender})
     </insert>

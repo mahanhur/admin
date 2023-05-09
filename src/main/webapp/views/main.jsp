@@ -1,11 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 360px;
+        max-width: 800px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+
+</style>
+
 
 <script>
     let websocket_center = {
         stompClient:null,
         init:function(){
-            this.connect();
+            // this.connect();
+            this.getdata1();
+            this.getdata2();
+            this.getdata3();
+
             },
         connect:function(){
             var sid = this.id;
@@ -31,13 +81,171 @@
 
                 });
             });
+        },
+        getdata1: () => {
+            $.ajax({
+                url:'/chart1',
+                success: (result) => {
+                    websocket_center.display1(result)
+                },
+                error: () => {
+                }
+            });
+        },
+        getdata2: () => {
+            $.ajax({
+                url:'/chart2',
+                success: (result) => {
+                    websocket_center.display2(result)
+                }
+            });
+        },
+        getdata3: () => {
+            $.ajax({
+                url:'/chart3',
+                success: (result) => {
+                    websocket_center.display3(result)
+                }
+            });
+        },
+
+        display1:(result)=>{
+            Highcharts.chart('chart1', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Monthly Total Sales Amount by Gender'
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'KRW'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'MALE',
+                    data: result.mprice
+                }, {
+                    name: 'FEMALE',
+                    data: result.fprice
+                }]
+            });
+
+        },
+
+        display2:(result)=>{
+            Highcharts.chart('chart2', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Female<br>Sales<br>Shares<br>2020',
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    y: 60
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: true,
+                            distance: -50,
+                            style: {
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '75%'],
+                        size: '110%'
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Monthly share',
+                    innerSize: '50%',
+                    data: result
+                }]
+            });
+
+        },
+        display3:(result)=>{
+            Highcharts.chart('chart3', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Male<br>Sales<br>Shares<br>2020',
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    y: 60
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: true,
+                            distance: -50,
+                            style: {
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '75%'],
+                        size: '110%'
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Monthly share',
+                    innerSize: '50%',
+                    data: result
+                }]
+            });
+
         }
+
     };
 
     $(function(){
         websocket_center.init();
     });
+
+
 </script>
+
 
 <div class="container-fluid">
 
@@ -165,8 +373,7 @@
         <div class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div
-                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -185,9 +392,9 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
-                    </div>
+                    <figure class="highcharts-figure">
+                        <div id="chart1"></div>
+                    </figure>
                 </div>
             </div>
         </div>
@@ -216,20 +423,14 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                    </div>
+                    <figure class="highcharts-figure">
+                        <div id="chart2"></div>
+                    </figure>
+                </div>
+                <div class="card-body">
+                    <figure class="highcharts-figure">
+                        <div id="chart3"></div>
+                    </figure>
                 </div>
             </div>
         </div>

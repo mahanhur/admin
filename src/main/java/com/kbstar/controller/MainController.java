@@ -1,9 +1,12 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Adm;
-import com.kbstar.dto.Cust;
+import com.kbstar.dto.Sales;
 import com.kbstar.service.AdmService;
+import com.kbstar.service.SalesService;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.Objects;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -24,8 +27,11 @@ public class MainController {
     private BCryptPasswordEncoder encoder;
     @Autowired
     AdmService service;
+    @Autowired
+    SalesService salesService;
     @RequestMapping("/")
-    public String main(Model model) {
+    public String main(Model model) throws Exception {
+
         model.addAttribute("adminserver", adminServer);
         return "index";
     }
