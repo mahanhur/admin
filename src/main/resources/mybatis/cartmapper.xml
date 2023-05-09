@@ -11,6 +11,11 @@
           AND c.item_id = it.id
           AND c.id = #{id}
     </select>
+    <select id="count" resultType="int">
+        SELECT sum(i.price * c.cnt)
+        from cart c join item i
+        on c.item_id = i.id
+    </select>
     <select id="getmycart" parameterType="String" resultType="Cart">
         SELECT c.id, c.cust_id, c.item_id, c.cnt, c.rdate, cu.name as cust_name, it.name as item_name, it.price as item_price, it.imgname as item_imgname
         FROM cart c, cust cu, item it

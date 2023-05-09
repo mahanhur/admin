@@ -5,7 +5,7 @@
 <script>
     let chart04 = {
         init: function() {
-            var defaultData = 'http://127.0.0.1/logs/custinfo.log';
+            var defaultData = '${adminserver}/logs/cartinfo.log';
             var urlInput = document.getElementById('fetchURL');
             var pollingCheckbox = document.getElementById('enablePolling');
             var pollingInput = document.getElementById('pollingTime');
@@ -88,5 +88,4 @@
         </div>
     </div>
 
-</div>
 <!-- /.container-fluid -->
