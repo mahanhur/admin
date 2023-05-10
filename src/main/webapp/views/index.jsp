@@ -423,7 +423,7 @@
 
             <c:choose>
                 <c:when test="${center == null}">
-                    <jsp:include page="main.jsp"/>
+                    <jsp:include page="center.jsp"/>
                 </c:when>
                 <c:otherwise>
                     <jsp:include page="${center}.jsp"/>
