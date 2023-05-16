@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class MainController {
     @Value("${adminserver}")
-    String adminServer;
+    String adminserver;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -32,7 +32,7 @@ public class MainController {
     @RequestMapping("/")
     public String main(Model model) throws Exception {
 
-        model.addAttribute("adminserver", adminServer);
+        model.addAttribute("adminserver", adminserver);
         return "index";
     }
 
@@ -44,7 +44,7 @@ public class MainController {
 
     @RequestMapping("/livechart")
     public String livechart(Model model) {
-        model.addAttribute("adminserver", adminServer);
+        model.addAttribute("adminserver", adminserver);
         model.addAttribute("center", "livechart");
         return "index";
     };
@@ -113,10 +113,17 @@ public class MainController {
 
     @RequestMapping("/websocket")
     public String websocket(Model model) throws Exception{
-        model.addAttribute("adminserver", adminServer);
+        model.addAttribute("adminserver", adminserver);
         model.addAttribute("center", "websocket");
         return "index";
     }
+
+    @RequestMapping("/callcenter")
+    public String callcenter(Model model) throws Exception{
+        model.addAttribute("adminserver", adminserver);
+        model.addAttribute("center", "callcenter");
+        return "index";
     }
+}
 
 

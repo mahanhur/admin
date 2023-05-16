@@ -36,7 +36,7 @@ public class ScheduleController {
         messagingTemplate.convertAndSend("/sendadm", msg);
     }
 
-    @Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "*/300 * * * * *")
     public void cronJobWeeklyUpdate() throws Exception {
         int num = cartService.count();
         log.info(num+"");

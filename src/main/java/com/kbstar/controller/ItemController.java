@@ -63,6 +63,8 @@ public class ItemController {
         model.addAttribute("gitem",item);
         model.addAttribute("center", dir+"/detail");
         return "index";
+
+
     }
 
     @RequestMapping("/detailimpl")
