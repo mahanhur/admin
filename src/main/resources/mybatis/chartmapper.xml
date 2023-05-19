@@ -11,13 +11,5 @@
         order by 1
         ]]>
     </select>
-    <select id="getMonthlyTotal" resultType="chart">
-        <![CDATA[
-        select to_number(to_char(rdate,'MM')) as month, gender,sum(price) as total
-        from sales
-        group by to_number(to_char(rdate,'MM')), gender
-        order by 1
-        ]]>
-    </select>
 
 </mapper>
